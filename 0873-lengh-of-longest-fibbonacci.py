@@ -61,3 +61,28 @@ class Solution:
                             max_len = seq_l
 
         return max_len
+
+    def lenLongestFibSubseq(self, arr: List[int]) -> int:
+        ## Build a hash map of the 
+        arr_dict = {}
+        idx = 0
+        for a in arr:
+            arr_dict[a] = idx
+            idx += 1
+
+        max_len = 0
+        arr_len = len(arr)
+        for x1 in range(arr_len):
+            for x2 in range(x1+1, arr_len):
+                cur_len = 2
+                a = arr[x1]
+                b = arr[x2]
+                while (a + b) in arr_dict.keys():
+                    cur_len += 1
+                    c = a + b
+                    a = b
+                    b = c
+                if cur_len != 2 and cur_len > max_len:
+                    max_len = cur_len
+
+        return max_len
